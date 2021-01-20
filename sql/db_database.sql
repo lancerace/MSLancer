@@ -1,16 +1,11 @@
 ﻿#EXECUTE THIS FIRST, THEN NEXT SQL: 'db_drops.sql'
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+#SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+#SET time_zone = "+00:00";
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
-DROP DATABASE IF EXISTS `heavenms`;
-CREATE DATABASE `heavenms` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `heavenms`;
+#DROP DATABASE IF EXISTS `heavenms`;
+#CREATE DATABASE `heavenms` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+#USE `heavenms`;
 
 CREATE TABLE IF NOT EXISTS `accounts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -63,14 +58,14 @@ CREATE TABLE IF NOT EXISTS `alliance` (
   `rank5` varchar(11) NOT NULL DEFAULT 'Member',
   PRIMARY KEY (`id`),
   INDEX (name)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `allianceguilds` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `allianceid` int(10) NOT NULL DEFAULT '-1',
   `guildid` int(10) NOT NULL DEFAULT '-1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `area_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -78,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `area_info` (
   `area` int(11) NOT NULL,
   `info` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `bosslog_daily` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -13023,14 +13018,14 @@ CREATE TABLE IF NOT EXISTS `makercreatedata` (
   `quantity` smallint(6) NOT NULL,
   `tuc` tinyint(3) NOT NULL,
   PRIMARY KEY (`id`,`itemid`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `makerrecipedata` (
   `itemid` int(11) NOT NULL,
   `req_item` int(11) NOT NULL,
   `count` smallint(6) NOT NULL,
   PRIMARY KEY (`itemid`,`req_item`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `makerrewarddata` (
   `itemid` int(11) NOT NULL,
@@ -13038,7 +13033,7 @@ CREATE TABLE IF NOT EXISTS `makerrewarddata` (
   `quantity` smallint(6) NOT NULL,
   `prob` tinyint(3) unsigned NOT NULL DEFAULT '100',
   PRIMARY KEY (`itemid`,`rewardid`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 # updated with the MapleSkillMakerFetcher feature
 INSERT IGNORE INTO `makercreatedata` (`id`, `itemid`, `req_level`, `req_maker_level`, `req_meso`, `req_item`, `req_equip`, `catalyst`, `quantity`, `tuc`) VALUES
@@ -15912,7 +15907,7 @@ CREATE TABLE IF NOT EXISTS `makerreagentdata` (
   `stat` varchar(20) NOT NULL,
   `value` smallint(6) NOT NULL,
   PRIMARY KEY (`itemid`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT IGNORE INTO `makerreagentdata` (`itemid`, `stat`, `value`) VALUES
   (4250000, "incPAD", 1),
@@ -16376,7 +16371,7 @@ CREATE TABLE IF NOT EXISTS `newyear` (
   `timesent` bigint(20) unsigned NOT NULL,
   `timereceived` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `notes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -16414,7 +16409,7 @@ CREATE TABLE IF NOT EXISTS `nxcoupons` (
   `starthour` int(11) NOT NULL DEFAULT '0',
   `endhour` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
 
 INSERT INTO `nxcoupons` (`id`, `couponid`, `rate`, `activeday`, `starthour`, `endhour`) VALUES
 (1,5211000,2,254,18,20),
@@ -21495,6 +21490,6 @@ ALTER TABLE `family_character`
 ALTER TABLE `skills`
   ADD CONSTRAINT `skills_chrid_fk` FOREIGN KEY (`characterid`) REFERENCES `characters` (`id`) ON DELETE CASCADE;	# thanks Shavit
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+#!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT ;
+#!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS ;
+#!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION ;
