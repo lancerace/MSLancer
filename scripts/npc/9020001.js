@@ -61,6 +61,19 @@ var stage4Combos = Array(Array(0,0,0,1,1,1),Array(0,0,1,0,1,1),Array(0,0,1,1,0,1
     Array(1,0,1,1,0,0),Array(1,1,0,0,0,1),Array(1,1,0,0,1,0),
     Array(1,1,0,1,0,0),Array(1,1,1,0,0,0));
 
+
+
+var stage2Combos2Players = Array(Array(0,1,1),Array(1,0,1),Array(1,1,0),Array(1,1,1));       
+var stage3Combos2Players = Array(Array(0,0,0,1,1),Array(0,0,1,0,1),Array(0,0,1,1,0),
+    Array(0,1,0,0,1),Array(0,1,0,1,0),Array(0,1,1,0,0),
+    Array(1,0,0,0,1),Array(1,0,0,1,0),Array(1,0,1,0,0),Array(1,1,0,0,0));
+var stage4Combos2Players = Array(Array(0,0,0,0,1,1),Array(0,0,0,1,0,1),Array(0,0,0,1,1,0),
+    Array(0,0,1,0,0,1),Array(0,0,1,0,1,0),Array(0,0,1,1,0,0),
+    Array(0,1,0,0,0,1),Array(0,1,0,0,1,0),Array(0,1,0,1,0,0),Array(0,1,1,0,0,0),
+    Array(1,0,0,0,0,1),Array(1,0,0,0,1,0),Array(1,0,0,1,0,0),
+    Array(1,0,1,0,0,0),Array(1,1,0,0,0,0));
+
+
 function clearStage(stage, eim, curMap) {
     eim.setProperty(stage + "stageclear", "true");
     eim.showClearEffect(true);
@@ -110,7 +123,7 @@ function start() {
 
 function action(mode, type, selection) {
         eim = cm.getEventInstance();
-    
+        var numberofPlayers = eim.getPlayerCount();
         if (mode == -1) {
                 cm.dispose();
         } else {
@@ -179,7 +192,7 @@ function action(mode, type, selection) {
                                 cm.dispose();
                         } else if(curMap == 103000801) {   // stage 2
                                 var stgProperty = "stg2Property";
-                                var stgCombos = stage2Combos;
+                                var stgCombos = numberofPlayers === 2 ? stage2Combos2Players : stage2Combos;
                                 var stgAreas = stage2Rects;
 
                                 var nthtext = "2nd", nthobj = "ropes", nthverb = "hang", nthpos = "hang on the ropes too low";
@@ -209,7 +222,7 @@ function action(mode, type, selection) {
                                 cm.dispose();
                         } else if(curMap == 103000802) {
                                 var stgProperty = "stg3Property";
-                                var stgCombos = stage3Combos;
+                                var stgCombos = numberofPlayers === 2 ? stage3Combos2Players : stage3Combos;
                                 var stgAreas = stage3Rects;
 
                                 var nthtext = "3rd", nthobj = "platforms", nthverb = "stand", nthpos = "stand too close to the edges";
@@ -239,7 +252,7 @@ function action(mode, type, selection) {
                                 cm.dispose();
                         } else if(curMap == 103000803) {
                                 var stgProperty = "stg4Property";
-                                var stgCombos = stage4Combos;
+                                var stgCombos = numberofPlayers === 2 ? stage4Combos2Players : stage4Combos;
                                 var stgAreas = stage4Rects;
 
                                 var nthtext = "4th", nthobj = "barrels", nthverb = "stand", nthpos = "stand too close to the edges";
