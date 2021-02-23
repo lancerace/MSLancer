@@ -8,11 +8,11 @@ worlds:
     event_message: Scania!
     why_am_i_recommended: Welcome to Scania!
     channels: 3
-    exp_rate: 10
-    meso_rate: 10
-    drop_rate: 10
-    boss_drop_rate: 10                      #NOTE: Boss drop rate OVERRIDES common drop rate, for bosses-only.
-    quest_rate: 5                           #Multiplier for Exp & Meso gains when completing a quest. Only available when USE_QUEST_RATE is true. Stacks with server Exp & Meso rates.
+    exp_rate: 4
+    meso_rate: 1
+    drop_rate: 3
+    boss_drop_rate: 2                       #NOTE: Boss drop rate OVERRIDES common drop rate, for bosses-only.
+    quest_rate: 2                           #Multiplier for Exp & Meso gains when completing a quest. Only available when USE_QUEST_RATE is true. Stacks with server Exp & Meso rates.
     fishing_rate: 10                        #Multiplier for success likelihood on meso thrown during fishing.
     travel_rate: 10                         #Means of transportation rides/departs using 1/N of the default time.
 
@@ -187,7 +187,7 @@ server:
     BYPASS_PIC_EXPIRATION: 20           #Enables PIC bypass, which will remain active for that account by that client machine for N minutes. Set 0 to disable.
     BYPASS_PIN_EXPIRATION: 15           #Enables PIN bypass, which will remain active for that account by that client machine for N minutes. Set 0 to disable.
 
-    AUTOMATIC_REGISTER: true        #Automatically register players when they login with a nonexistent username.
+    AUTOMATIC_REGISTER: false        #Automatically register players when they login with a nonexistent username.
     BCRYPT_MIGRATION: true          #Performs a migration from old SHA-1 and SHA-512 password to bcrypt.
     COLLECTIVE_CHARSLOT: false      #Available character slots are contabilized globally rather than per world server.
     DETERRED_MULTICLIENT: false     #Enables detection of multi-client and suspicious remote IP on the login system.
