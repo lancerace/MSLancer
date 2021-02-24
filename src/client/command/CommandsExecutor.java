@@ -203,10 +203,10 @@ public class CommandsExecutor {
         addCommand("joinevent", JoinEventCommand.class);
         addCommand("leaveevent", LeaveEventCommand.class);
         addCommand("ranks", RanksCommand.class);
-        //addCommand("str", StatStrCommand.class);
-        //addCommand("dex", StatDexCommand.class);
-        //addCommand("int", StatIntCommand.class);
-        //addCommand("luk", StatLukCommand.class);
+        addCommand("str", StatStrCommand.class);
+        addCommand("dex", StatDexCommand.class);
+        addCommand("int", StatIntCommand.class);
+        addCommand("luk", StatLukCommand.class);
         //addCommand("enableauth", EnableAuthCommand.class);
         //addCommand("toggleexp", ToggleExpCommand.class);
         //addCommand("mylawn", MapOwnerClaimCommand.class);
