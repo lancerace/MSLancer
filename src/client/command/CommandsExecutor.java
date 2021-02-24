@@ -185,7 +185,7 @@ public class CommandsExecutor {
         
         addCommand(new String[]{"help", "commands"}, HelpCommand.class);
         //addCommand("droplimit", DropLimitCommand.class);
-        addCommand("whodrops", 1, WhoDropsCommand.class);
+        addCommand("whodrops", WhoDropsCommand.class);
         addCommand("time", TimeCommand.class);
         //addCommand("credits", StaffCommand.class);
         //addCommand("buyback", BuyBackCommand.class);
