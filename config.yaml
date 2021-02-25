@@ -219,7 +219,7 @@ server:
 
     USE_MAXRANGE: true                  #Will send and receive packets from all events on a map, rather than those of only view range.
     USE_MAXRANGE_ECHO_OF_HERO: true
-    USE_MTS: false
+    USE_MTS: true
     USE_CPQ: true                       #Renders the CPQ available or not.
     USE_AUTOHIDE_GM: true              #When enabled, GMs are automatically hidden when joining. Thanks to Steven Deblois (steven1152).
     USE_BUYBACK_SYSTEM: false            #Enables the HeavenMS-builtin buyback system, to be used by dead players when clicking the MTS button.
