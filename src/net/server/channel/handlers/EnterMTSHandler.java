@@ -35,6 +35,7 @@ import net.server.Server;
 import server.maps.FieldLimit;
 import server.maps.MapleMap;
 import server.maps.MapleMiniDungeonInfo;
+import server.maps.MaplePortal;
 import tools.MaplePacketCreator;
 import tools.data.input.SeekableLittleEndianAccessor;
 
@@ -87,7 +88,7 @@ public final class EnterMTSHandler extends AbstractMaplePacketHandler {
             chr.unregisterChairBuff();
             Server.getInstance().getPlayerBuffStorage().addBuffsToStorage(chr.getId(), chr.getAllBuffs());
             Server.getInstance().getPlayerBuffStorage().addDiseasesToStorage(chr.getId(), chr.getAllDiseases());
-            chr.setAwayFromChannelWorld();
+            //chr.setAwayFromChannelWorld();
             chr.notifyMapTransferToPartner(-1);
             chr.removeIncomingInvites();
             chr.cancelAllBuffs(true);
@@ -102,18 +103,13 @@ public final class EnterMTSHandler extends AbstractMaplePacketHandler {
 
             chr.saveCharToDB();
             
-            c.getChannelServer().removePlayer(chr);
-            chr.getMap().removePlayer(c.getPlayer());
-            try {
-                c.announce(MaplePacketCreator.openCashShop(c, true));
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-
+            //c.getChannelServer().removePlayer(chr);
+            //chr.getMap().removePlayer(c.getPlayer());
             HashMap<String, Integer> gotomaps = new HashMap<>(GameConstants.GOTO_AREAS);
             MapleMap target = c.getChannelServer().getMapFactory().getMap(gotomaps.get("fm"));
+            MaplePortal targetPortal = target.getRandomPlayerSpawnpoint();
             chr.saveLocationOnWarp();
-            chr.changeMap(target);
+            chr.changeMap(target,targetPortal);
         }
     }
 }
