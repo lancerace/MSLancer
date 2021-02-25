@@ -136,6 +136,7 @@ public final class ChangeMapHandler extends AbstractMaplePacketHandler {
                                                                 }
                                                         }
                                                         if (warp) {
+                                                                System.out.println("warpping to:"+ targetid);
                                                                 final MapleMap to = chr.getWarpMap(targetid);
                                                                 chr.changeMap(to, to.getPortal(0));
                                                         }
