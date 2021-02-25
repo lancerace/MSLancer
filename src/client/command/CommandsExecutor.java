@@ -191,6 +191,7 @@ public class CommandsExecutor {
         //addCommand("buyback", BuyBackCommand.class);
         addCommand("uptime", UptimeCommand.class);
         addCommand("gacha", GachaCommand.class);
+        addCommand("map", GetMapCommand.class);
         //addCommand("dispose", DisposeCommand.class);
         //addCommand("changel", ChangeLanguageCommand.class);
         addCommand("equiplv",  EquipLvCommand.class);
