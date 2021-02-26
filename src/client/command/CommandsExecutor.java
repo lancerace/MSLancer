@@ -186,6 +186,7 @@ public class CommandsExecutor {
         addCommand(new String[]{"help", "commands"}, HelpCommand.class);
         //addCommand("droplimit", DropLimitCommand.class);
         addCommand("whodrops", WhoDropsCommand.class);
+        addCommand("whatdropsfrom", WhatDropsFromCommand.class);
         addCommand("time", TimeCommand.class);
         //addCommand("credits", StaffCommand.class);
         //addCommand("buyback", BuyBackCommand.class);
@@ -221,8 +222,8 @@ public class CommandsExecutor {
     private void registerLv1Commands() {
         levelCommandsCursor = new Pair<>((List<String>) new ArrayList<String>(), (List<String>) new ArrayList<String>());
         
-        addCommand("whatdropsfrom", 1, WhatDropsFromCommand.class);
-        addCommand("whodrops", 1, WhoDropsCommand.class);
+        //addCommand("whatdropsfrom", 1, WhatDropsFromCommand.class);
+        //addCommand("whodrops", 1, WhoDropsCommand.class);
         addCommand("buffme", 1, BuffMeCommand.class);
         addCommand("goto", 1, GotoCommand.class);
         
