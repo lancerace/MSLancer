@@ -246,11 +246,11 @@ public abstract class AbstractDealDamageHandler extends AbstractMaplePacketHandl
             for (Integer oned : attack.allDamage.keySet()) {
                 final MapleMonster monster = map.getMonsterByOid(oned.intValue());
                 if (monster != null) { 
-                    double distance = player.getPosition().distanceSq(monster.getPosition());
-                    double distanceToDetect = 200000.0;
-                    
+                    double distance = player.getPosition().distanceSq(monster.getPosition());                                           
+                    double distanceToDetect = 100000.0;
+
                     if(attack.ranged)
-                        distanceToDetect += 400000;
+                        distanceToDetect += 200000;
                     
                     if(attack.magic)
                         distanceToDetect += 200000;
@@ -262,13 +262,13 @@ public abstract class AbstractDealDamageHandler extends AbstractMaplePacketHandl
                         distanceToDetect += 40000;
                     
                     else if(attack.skill == Bishop.GENESIS || attack.skill == ILArchMage.BLIZZARD || attack.skill == FPArchMage.METEOR_SHOWER)
-                        distanceToDetect += 275000;
+                        distanceToDetect += 175000;
                     
                     else if(attack.skill == Hero.BRANDISH || attack.skill == DragonKnight.SPEAR_CRUSHER || attack.skill == DragonKnight.POLE_ARM_CRUSHER)
                         distanceToDetect += 40000;
                     
                     else if(attack.skill == DragonKnight.DRAGON_ROAR || attack.skill == SuperGM.SUPER_DRAGON_ROAR)
-                        distanceToDetect += 250000;
+                        distanceToDetect += 150000;
                     
                     else if(attack.skill == Shadower.BOOMERANG_STEP)
                         distanceToDetect += 60000;
@@ -276,6 +276,7 @@ public abstract class AbstractDealDamageHandler extends AbstractMaplePacketHandl
                     if (distance > distanceToDetect) {
                         AutobanFactory.DISTANCE_HACK.alert(player, "Distance Sq to monster: " + distance + " SID: " + attack.skill + " MID: " + monster.getId());
                         monster.refreshMobPosition();
+                        AutobanFactory.DISTANCE_HACK.autoban(player, "Using DISTANCE HACK. Shame on you xd");
                     }
                     
                     int totDamageToOneMonster = 0;

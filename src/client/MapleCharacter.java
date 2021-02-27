@@ -10323,7 +10323,7 @@ public class MapleCharacter extends AbstractMapleCharacterObject {
         }
         
         this.ban(reason);
-        announce(MaplePacketCreator.sendPolice(String.format("You have been blocked by the#b %s Police for HACK reason.#k", "HeavenMS")));
+        announce(MaplePacketCreator.sendPolice(String.format("You have been blocked by the#b %s Police for HACK reason.#k", "SeaMS")));
         TimerManager.getInstance().schedule(new Runnable() {
             @Override
             public void run() {
