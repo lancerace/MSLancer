@@ -276,7 +276,6 @@ public abstract class AbstractDealDamageHandler extends AbstractMaplePacketHandl
                     if (distance > distanceToDetect) {
                         AutobanFactory.DISTANCE_HACK.alert(player, "Distance Sq to monster: " + distance + " SID: " + attack.skill + " MID: " + monster.getId());
                         monster.refreshMobPosition();
-                        AutobanFactory.DISTANCE_HACK.autoban(player, "Using DISTANCE HACK. Shame on you xd");
                     }
                     
                     int totDamageToOneMonster = 0;

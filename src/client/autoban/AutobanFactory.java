@@ -84,20 +84,22 @@ public enum AutobanFactory {
 	}
 	
 	public void alert(MapleCharacter chr, String reason) {
-            if(YamlConfig.config.server.USE_AUTOBAN == true) {
-		if (chr != null && MapleLogger.ignored.contains(chr.getId())){
+        if(YamlConfig.config.server.USE_AUTOBAN == true) {
+			if (chr != null && MapleLogger.ignored.contains(chr.getId())){
 			return;
 		}
 		Server.getInstance().broadcastGMMessage((chr != null ? chr.getWorld() : 0), MaplePacketCreator.sendYellowTip((chr != null ? MapleCharacter.makeMapleReadable(chr.getName()) : "") + " caused " + this.name() + " " + reason));
-            }
+		this.autoban(chr,reason);
+	}
         if (YamlConfig.config.server.USE_AUTOBAN_LOG) {
 			FilePrinter.print(FilePrinter.AUTOBAN_WARNING, (chr != null ? MapleCharacter.makeMapleReadable(chr.getName()) : "") + " caused " + this.name() + " " + reason);
 		}
 	}
 	
 	public void autoban(MapleCharacter chr, String value) {
-            if(YamlConfig.config.server.USE_AUTOBAN == true) {
-		chr.autoban("Autobanned for (" + this.name() + ": " + value + ")");
+            if(YamlConfig.config.server.USE_AUTOBAN == true) {				
+				chr.autoban("Autobanned for (" + this.name() + ": " + value + ") Shame on you xd.");
+				Server.getInstance().broadcastMessage(chr.getWorld(), MaplePacketCreator.serverNotice(6, "[Notice] " + "Autobanned for (" + this.name() + ": " + value + ")"));
 		//chr.sendPolice("You will be disconnected for (" + this.name() + ": " + value + ")");
             }
 	}
