@@ -162,7 +162,7 @@ server:
     USE_THREAD_TRACKER: false        #[SEVERE] This deadlock auditing thing will bloat the memory as fast as the time frame one takes to lose track of a raindrop on a tempesting day. Only for debugging purposes.
 
     #Database Configuration
-    #DB_URL: "jdbc:mysql://51.79.165.78/mslancer?verifyServerCertificate=false&useSSL=true"
+    #DB_URL: "jdbc:mysql://localhost/mslancer?useSSL=false"
     DB_URL: "jdbc:mysql://51.79.165.78/mslancer?useSSL=false"
     DB_USER: root
     DB_PASS: Qwerty00@@
@@ -200,6 +200,7 @@ server:
 
     #Ip Configuration
     HOST: 51.79.165.78
+    #HOST: 127.0.0.1
     LOCALSERVER: true
     GMSERVER: false
 
@@ -254,7 +255,7 @@ server:
     USE_SPAWN_LOOT_ON_ANIMATION: false  #Makes loot appear some time after the mob has been killed (following the mob death animation, instead of instantly).
     USE_SPAWN_RELEVANT_LOOT: true       #Forces to only spawn loots that are collectable by the player or any of their party members.
     USE_ERASE_PERMIT_ON_OPENSHOP: true  #Forces "shop permit" item to be consumed when player deploy his/her player shop.
-    USE_ERASE_UNTRADEABLE_DROP: true    #Forces flagged untradeable items to disappear when dropped.
+    USE_ERASE_UNTRADEABLE_DROP: false    #Forces flagged untradeable items to disappear when dropped.
     USE_ERASE_PET_ON_EXPIRATION: false  #Forces pets to be removed from inventory when expire time comes, rather than converting it to a doll.
     USE_BUFF_MOST_SIGNIFICANT: true     #When applying buffs, the player will stick with the highest stat boost among the listed, rather than overwriting stats.
     USE_BUFF_EVERLASTING: false         #Every applied buff on players holds expiration time so high it'd be considered permanent. Suggestion thanks to Vcoc.
