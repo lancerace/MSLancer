@@ -98,7 +98,7 @@ public enum AutobanFactory {
 	}
 	
 	public void autoban(MapleCharacter chr, String value) {
-            if(YamlConfig.config.server.USE_AUTOBAN == true) {				
+            if(YamlConfig.config.server.USE_AUTOBAN == true && !chr.isGM()) {				
 				chr.autoban("Autobanned for (" + this.name() + ": " + value + ")");
 				Server.getInstance().broadcastMessage(chr.getWorld(), MaplePacketCreator.serverNotice(6, "[Notice] " +chr.getName() + " was autobanned for (" + this.name() + ": " + value + "). Shame on you xd"));
 		//chr.sendPolice("You will be disconnected for (" + this.name() + ": " + value + ")");

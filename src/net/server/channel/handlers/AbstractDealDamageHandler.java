@@ -23,6 +23,7 @@ package net.server.channel.handlers;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -54,6 +55,7 @@ import client.MapleJob;
 import client.Skill;
 import client.SkillFactory;
 import client.autoban.AutobanFactory;
+import client.autoban.AutobanManager;
 import client.status.MonsterStatus;
 import client.status.MonsterStatusEffect;
 import constants.game.GameConstants;
@@ -139,6 +141,7 @@ public abstract class AbstractDealDamageHandler extends AbstractMaplePacketHandl
 
     protected void applyAttack(AttackInfo attack, final MapleCharacter player, int attackCount) {
         final MapleMap map = player.getMap();
+        Calendar now = Calendar.getInstance();
         if (map.isOwnershipRestricted(player)) {
             return;
         }
@@ -245,13 +248,28 @@ public abstract class AbstractDealDamageHandler extends AbstractMaplePacketHandl
             }
             for (Integer oned : attack.allDamage.keySet()) {
                 final MapleMonster monster = map.getMonsterByOid(oned.intValue());
-                if (monster != null) { 
-                    double distance = player.getPosition().distanceSq(monster.getPosition());                                           
+                if (monster != null) {
+                    double distance = player.getPosition().distanceSq(monster.getPosition());
                     double distanceToDetect = 130000.0;
 
-                    if(attack.ranged)
-                        distanceToDetect += 200000;
-                    
+                    int current_seconds = now.get(Calendar.SECOND);
+                    int current_millis = now.get(Calendar.MILLISECOND);
+
+                    if (attack.skill != Bowmaster.HURRICANE)
+                        if (player.getLastAttackedSecond() == current_seconds
+                                && (player.getLastAttackedMilis() - current_millis) < 150) {
+                            player.incrementIrregularAttackSpeed();
+                        } else
+                            player.setIrregularAttackSpeed(0);
+
+                    player.recordLastAttack(now.get(Calendar.SECOND), now.get(Calendar.MILLISECOND));
+
+                    if (player.getIrregularAttackSpeed() >= 4)
+                        AutobanFactory.FAST_ATTACK.alert(player, "Unlimited Fast Attack. Trying to be saitama.");
+
+                    if (attack.ranged)
+                        distanceToDetect += 400000;
+
                     if(attack.magic)
                         distanceToDetect += 200000;
                     
@@ -273,6 +291,7 @@ public abstract class AbstractDealDamageHandler extends AbstractMaplePacketHandl
                     else if(attack.skill == Shadower.BOOMERANG_STEP)
                         distanceToDetect += 60000;
                     
+
                     if (distance > distanceToDetect) {
                         AutobanFactory.DISTANCE_HACK.alert(player, "Distance Sq to monster: " + distance + " SID: " + attack.skill + " MID: " + monster.getId());
                         monster.refreshMobPosition();
@@ -908,7 +927,7 @@ public abstract class AbstractDealDamageHandler extends AbstractMaplePacketHandl
                     if(canCrit) // They can crit, so up the max.
                             maxWithCrit *= 2;
                     
-                    // Warn if the damage is over 1.5x what we calculated above.
+
                     if(damage > maxWithCrit * 1.5) {
                         AutobanFactory.DAMAGE_HACK.alert(chr, "DMG: " + damage + " MaxDMG: " + maxWithCrit + " SID: " + ret.skill + " MobID: " + (monster != null ? monster.getId() : "null") + " Map: " + chr.getMap().getMapName() + " (" + chr.getMapId() + ")");
                     }

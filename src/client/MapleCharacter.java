@@ -342,6 +342,9 @@ public class MapleCharacter extends AbstractMapleCharacterObject {
     private int banishSp = -1;
     private long banishTime = 0;
     private long lastExpGainTime;
+    private int lastAttackedMilis=0;
+    private int lastAttackedSeconds=0;
+    private int irregularAttackSpeed=0; //trace unlimited attack hack.
     private boolean pendingNameChange; //only used to change name on logout, not to be relied upon elsewhere
     private long loginTime;
     
@@ -575,6 +578,31 @@ public class MapleCharacter extends AbstractMapleCharacterObject {
         client.setCharacterOnSessionTransitionState(this.getId());
     }
     
+    public int getLastAttackedMilis(){
+        return this.lastAttackedMilis;
+    }
+
+    public int getLastAttackedSecond(){
+        return this.lastAttackedSeconds; 
+    }
+
+    public int getIrregularAttackSpeed(){
+        return this.irregularAttackSpeed;
+    }
+
+    public void setIrregularAttackSpeed(int i){
+       this.irregularAttackSpeed = i;
+    }
+
+    public void incrementIrregularAttackSpeed(){
+        this.irregularAttackSpeed++;
+    }
+
+    public void recordLastAttack(int lastAttackedSeconds, int lastAttackedMilis){
+        this.lastAttackedSeconds = lastAttackedSeconds;
+        this.lastAttackedMilis = lastAttackedMilis;
+    }
+
     public boolean getCS() {
         return useCS;
     }
