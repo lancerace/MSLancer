@@ -77,6 +77,7 @@ public final class CashOperationHandler extends AbstractMaplePacketHandler {
                             c.enableCSActions();
                             return;
                         } else if (ItemConstants.isRateCoupon(cItem.getItemId()) && !YamlConfig.config.server.USE_SUPPLY_RATE_COUPONS) {
+                            FilePrinter.print(FilePrinter.CASHITEM_BOUGHT, chr + " try to buy " + MapleItemInformationProvider.getInstance().getName(cItem.getItemId()) + " (SN " + cItem.getSN() + ") for " + cItem.getPrice() + ". But Rate coupons are currently unavailable to purchase. ");
                             chr.dropMessage(1, "Rate coupons are currently unavailable to purchase.");
                             c.enableCSActions();
                             return;
