@@ -255,15 +255,25 @@ public abstract class AbstractDealDamageHandler extends AbstractMaplePacketHandl
                     int current_seconds = now.get(Calendar.SECOND);
                     int current_millis = now.get(Calendar.MILLISECOND);
 
-                    if (attack.skill != Bowmaster.HURRICANE)
+                    //System.out.println("attackCount:"+attackCount);
+                    //System.out.println(player.getLastAttackedSecond() + " : " + player.getLastAttackedMilis());
+                    //System.out.println(current_seconds + " : " + current_millis);
+                    //System.out.println("==============================================");
+
+
+                    //Check unlimited atkspd. also handle false positive autoban for aoe. 
+                    if ((attack.skill != Bowmaster.HURRICANE && attack.numAttacked != player.getLastNumAttacked()) 
+                        || attack.numAttacked == 1)
                         if (player.getLastAttackedSecond() == current_seconds
                                 && (player.getLastAttackedMilis() - current_millis) < 150) {
                             player.incrementIrregularAttackSpeed();
                         } else
                             player.setIrregularAttackSpeed(0);
-
                     player.recordLastAttack(now.get(Calendar.SECOND), now.get(Calendar.MILLISECOND));
+                    player.setLastNumAttacked(attack.numAttacked);
 
+                    //System.out.println("NumAttacked: " + attack.numAttacked);
+                    //System.out.println("irregularattackspd: " + player.getIrregularAttackSpeed());
                     if (player.getIrregularAttackSpeed() >= 4)
                         AutobanFactory.FAST_ATTACK.alert(player, "Unlimited Fast Attack. Trying to be saitama.");
 
