@@ -303,9 +303,15 @@ public abstract class AbstractDealDamageHandler extends AbstractMaplePacketHandl
                     
 
                     if (distance > distanceToDetect) {
-                        AutobanFactory.DISTANCE_HACK.alert(player, "Distance Sq to monster: " + distance + " SID: " + attack.skill + " MID: " + monster.getId());
+                        player.setDistanceHackInstance(player.getDistanceHackInstance() + 1);
                         monster.refreshMobPosition();
-                    }
+                    }else player.setDistanceHackInstance(0);
+
+                    //set a guard > 4 , as it apply to attacking while using portal. fix false positive.
+                    if(player.getDistanceHackInstance() > 4)
+                     AutobanFactory.DISTANCE_HACK.alert(player, "Distance Sq to monster: " + distance + " SID: " + attack.skill + " MID: " + monster.getId());
+
+
                     
                     int totDamageToOneMonster = 0;
                     List<Integer> onedList = attack.allDamage.get(oned);

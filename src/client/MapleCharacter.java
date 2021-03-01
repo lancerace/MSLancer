@@ -345,6 +345,7 @@ public class MapleCharacter extends AbstractMapleCharacterObject {
     private int lastAttackedMilis=0;
     private int lastAttackedSeconds=0;
     private int lastNumAttacked=0;
+    private int distanceHackInstance=0;
     private int irregularAttackSpeed=0; //trace unlimited attack hack.
     private boolean pendingNameChange; //only used to change name on logout, not to be relied upon elsewhere
     private long loginTime;
@@ -585,6 +586,14 @@ public class MapleCharacter extends AbstractMapleCharacterObject {
 
     public int getLastAttackedSecond(){
         return this.lastAttackedSeconds; 
+    }
+
+    public int getDistanceHackInstance(){
+        return this.distanceHackInstance;
+    }
+
+    public void setDistanceHackInstance(int i){
+        this.distanceHackInstance= i;
     }
 
     public int getLastNumAttacked(){
