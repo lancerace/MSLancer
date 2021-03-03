@@ -342,6 +342,11 @@ public class MapleCharacter extends AbstractMapleCharacterObject {
     private int banishSp = -1;
     private long banishTime = 0;
     private long lastExpGainTime;
+    private int lastAttackedMilis=0;
+    private int lastAttackedSeconds=0;
+    private int lastNumAttacked=0;
+    private int distanceHackInstance=0;
+    private int irregularAttackSpeed=0; //trace unlimited attack hack.
     private boolean pendingNameChange; //only used to change name on logout, not to be relied upon elsewhere
     private long loginTime;
     
@@ -575,6 +580,47 @@ public class MapleCharacter extends AbstractMapleCharacterObject {
         client.setCharacterOnSessionTransitionState(this.getId());
     }
     
+    public int getLastAttackedMilis(){
+        return this.lastAttackedMilis;
+    }
+
+    public int getLastAttackedSecond(){
+        return this.lastAttackedSeconds; 
+    }
+
+    public int getDistanceHackInstance(){
+        return this.distanceHackInstance;
+    }
+
+    public void setDistanceHackInstance(int i){
+        this.distanceHackInstance= i;
+    }
+
+    public int getLastNumAttacked(){
+        return this.lastNumAttacked;
+    }
+
+    public int getIrregularAttackSpeed() {
+        return this.irregularAttackSpeed;
+    }
+
+    public void setLastNumAttacked(int i) {
+        this.lastNumAttacked = i;
+    }
+
+    public void setIrregularAttackSpeed(int i) {
+        this.irregularAttackSpeed = i;
+    }
+
+    public void incrementIrregularAttackSpeed() {
+        this.irregularAttackSpeed++;
+    }
+
+    public void recordLastAttack(int lastAttackedSeconds, int lastAttackedMilis){
+        this.lastAttackedSeconds = lastAttackedSeconds;
+        this.lastAttackedMilis = lastAttackedMilis;
+    }
+
     public boolean getCS() {
         return useCS;
     }
@@ -10323,7 +10369,7 @@ public class MapleCharacter extends AbstractMapleCharacterObject {
         }
         
         this.ban(reason);
-        announce(MaplePacketCreator.sendPolice(String.format("You have been blocked by the#b %s Police for HACK reason.#k", "HeavenMS")));
+        announce(MaplePacketCreator.sendPolice(String.format("You have been blocked by the#b %s Police for HACK reason.#k", "SeaMS")));
         TimerManager.getInstance().schedule(new Runnable() {
             @Override
             public void run() {

@@ -23,6 +23,7 @@ package net.server.channel.handlers;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -54,6 +55,7 @@ import client.MapleJob;
 import client.Skill;
 import client.SkillFactory;
 import client.autoban.AutobanFactory;
+import client.autoban.AutobanManager;
 import client.status.MonsterStatus;
 import client.status.MonsterStatusEffect;
 import constants.game.GameConstants;
@@ -139,6 +141,7 @@ public abstract class AbstractDealDamageHandler extends AbstractMaplePacketHandl
 
     protected void applyAttack(AttackInfo attack, final MapleCharacter player, int attackCount) {
         final MapleMap map = player.getMap();
+        Calendar now = Calendar.getInstance();
         if (map.isOwnershipRestricted(player)) {
             return;
         }
@@ -245,13 +248,38 @@ public abstract class AbstractDealDamageHandler extends AbstractMaplePacketHandl
             }
             for (Integer oned : attack.allDamage.keySet()) {
                 final MapleMonster monster = map.getMonsterByOid(oned.intValue());
-                if (monster != null) { 
+                if (monster != null) {
                     double distance = player.getPosition().distanceSq(monster.getPosition());
-                    double distanceToDetect = 200000.0;
-                    
-                    if(attack.ranged)
+                    double distanceToDetect = 170000.0;
+
+                    int current_seconds = now.get(Calendar.SECOND);
+                    int current_millis = now.get(Calendar.MILLISECOND);
+
+                    //System.out.println("attackCount:"+attackCount);
+                    //System.out.println(player.getLastAttackedSecond() + " : " + player.getLastAttackedMilis());
+                    //System.out.println(current_seconds + " : " + current_millis);
+                    //System.out.println("==============================================");
+
+
+                    //Check unlimited atkspd. also handle false positive autoban for aoe. 
+                    if ((attack.skill != Bowmaster.HURRICANE && attack.numAttacked != player.getLastNumAttacked()) 
+                        || attack.numAttacked == 1)
+                        if (player.getLastAttackedSecond() == current_seconds
+                                && (player.getLastAttackedMilis() - current_millis) < 150) {
+                            player.incrementIrregularAttackSpeed();
+                        } else
+                            player.setIrregularAttackSpeed(0);
+                    player.recordLastAttack(now.get(Calendar.SECOND), now.get(Calendar.MILLISECOND));
+                    player.setLastNumAttacked(attack.numAttacked);
+
+                    //System.out.println("NumAttacked: " + attack.numAttacked);
+                    //System.out.println("irregularattackspd: " + player.getIrregularAttackSpeed());
+                    if (player.getIrregularAttackSpeed() >= 4)
+                        AutobanFactory.FAST_ATTACK.alert(player, "Unlimited Fast Attack. Trying to be saitama.");
+
+                    if (attack.ranged)
                         distanceToDetect += 400000;
-                    
+
                     if(attack.magic)
                         distanceToDetect += 200000;
                     
@@ -262,21 +290,28 @@ public abstract class AbstractDealDamageHandler extends AbstractMaplePacketHandl
                         distanceToDetect += 40000;
                     
                     else if(attack.skill == Bishop.GENESIS || attack.skill == ILArchMage.BLIZZARD || attack.skill == FPArchMage.METEOR_SHOWER)
-                        distanceToDetect += 275000;
+                        distanceToDetect += 175000;
                     
                     else if(attack.skill == Hero.BRANDISH || attack.skill == DragonKnight.SPEAR_CRUSHER || attack.skill == DragonKnight.POLE_ARM_CRUSHER)
                         distanceToDetect += 40000;
                     
                     else if(attack.skill == DragonKnight.DRAGON_ROAR || attack.skill == SuperGM.SUPER_DRAGON_ROAR)
-                        distanceToDetect += 250000;
+                        distanceToDetect += 150000;
                     
                     else if(attack.skill == Shadower.BOOMERANG_STEP)
                         distanceToDetect += 60000;
                     
+
                     if (distance > distanceToDetect) {
-                        AutobanFactory.DISTANCE_HACK.alert(player, "Distance Sq to monster: " + distance + " SID: " + attack.skill + " MID: " + monster.getId());
+                        player.setDistanceHackInstance(player.getDistanceHackInstance() + 1);
                         monster.refreshMobPosition();
-                    }
+                    }else player.setDistanceHackInstance(0);
+
+                    //set a guard > 4 , as it apply to attacking while using portal. fix false positive.
+                    if(player.getDistanceHackInstance() > 4)
+                     AutobanFactory.DISTANCE_HACK.alert(player, "Distance Sq to monster: " + distance + " SID: " + attack.skill + " MID: " + monster.getId());
+
+
                     
                     int totDamageToOneMonster = 0;
                     List<Integer> onedList = attack.allDamage.get(oned);
@@ -908,7 +943,7 @@ public abstract class AbstractDealDamageHandler extends AbstractMaplePacketHandl
                     if(canCrit) // They can crit, so up the max.
                             maxWithCrit *= 2;
                     
-                    // Warn if the damage is over 1.5x what we calculated above.
+
                     if(damage > maxWithCrit * 1.5) {
                         AutobanFactory.DAMAGE_HACK.alert(chr, "DMG: " + damage + " MaxDMG: " + maxWithCrit + " SID: " + ret.skill + " MobID: " + (monster != null ? monster.getId() : "null") + " Map: " + chr.getMap().getMapName() + " (" + chr.getMapId() + ")");
                     }

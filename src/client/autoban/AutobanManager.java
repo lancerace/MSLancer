@@ -69,12 +69,13 @@ public class AutobanManager {
         if (lastmisses == misses && misses > 6) {
             samemisscount++;
         }
-        if (samemisscount > 4)
+        if (samemisscount > 4){
         	chr.sendPolice("You will be disconnected for miss godmode.");
-            //chr.autoban("Autobanned for : " + misses + " Miss godmode", 1);
+            AutobanFactory.SAME_MISS_GODMODE_HACK.alert(chr,"Using Miss godmode hack. Saitama & Goku wannabe.");    
+        }
         else if (samemisscount > 0)
-
         this.lastmisses = misses;
+
         this.misses = 0;
     }
     

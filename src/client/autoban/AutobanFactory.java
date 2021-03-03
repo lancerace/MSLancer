@@ -42,6 +42,7 @@ public enum AutobanFactory {
 	PORTAL_DISTANCE(5, 30000),
 	PACKET_EDIT,
 	ACC_HACK,
+	SAME_MISS_GODMODE_HACK,
 	CREATION_GENERATOR,
 	HIGH_HP_HEALING,
 	FAST_HP_HEALING(15),
@@ -84,20 +85,22 @@ public enum AutobanFactory {
 	}
 	
 	public void alert(MapleCharacter chr, String reason) {
-            if(YamlConfig.config.server.USE_AUTOBAN == true) {
-		if (chr != null && MapleLogger.ignored.contains(chr.getId())){
-			return;
-		}
+        if(YamlConfig.config.server.USE_AUTOBAN == true) {
+			this.autoban(chr,reason);
+			if (chr != null && MapleLogger.ignored.contains(chr.getId())){
+				return;
+			}
 		Server.getInstance().broadcastGMMessage((chr != null ? chr.getWorld() : 0), MaplePacketCreator.sendYellowTip((chr != null ? MapleCharacter.makeMapleReadable(chr.getName()) : "") + " caused " + this.name() + " " + reason));
-            }
+		}
         if (YamlConfig.config.server.USE_AUTOBAN_LOG) {
 			FilePrinter.print(FilePrinter.AUTOBAN_WARNING, (chr != null ? MapleCharacter.makeMapleReadable(chr.getName()) : "") + " caused " + this.name() + " " + reason);
 		}
 	}
 	
 	public void autoban(MapleCharacter chr, String value) {
-            if(YamlConfig.config.server.USE_AUTOBAN == true) {
-		chr.autoban("Autobanned for (" + this.name() + ": " + value + ")");
+            if(YamlConfig.config.server.USE_AUTOBAN == true && !chr.isGM()) {				
+				chr.autoban("Autobanned for (" + this.name() + ": " + value + ")");
+				Server.getInstance().broadcastMessage(chr.getWorld(), MaplePacketCreator.serverNotice(6, "[Notice] " +chr.getName() + " was autobanned for (" + this.name() + ": " + value + "). Shame on you xd"));
 		//chr.sendPolice("You will be disconnected for (" + this.name() + ": " + value + ")");
             }
 	}
