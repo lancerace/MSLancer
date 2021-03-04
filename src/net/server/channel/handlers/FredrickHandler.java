@@ -23,7 +23,7 @@ package net.server.channel.handlers;
 
 import client.MapleCharacter;
 import client.MapleClient;
-import client.processor.npc.FredrickProcessor;
+import client.autoban.AutobanFactory;
 
 import net.AbstractMaplePacketHandler;
 import tools.data.input.SeekableLittleEndianAccessor;
@@ -44,8 +44,12 @@ public class FredrickHandler extends AbstractMaplePacketHandler {
                 //c.announce(MaplePacketCreator.getFredrick((byte) 0x24));
                 break;
             case 0x1A:
-                FredrickProcessor.fredrickRetrieveItems(c);
+            {   
+                AutobanFactory.ITEM_DUPE.alert(chr,"Item dupe attempt. You just got caught. Better luck next time.");
+                AutobanFactory.ITEM_DUPE.addPoint(chr.getAutobanManager(), "Banned for item duping 0x1A");
+                //FredrickProcessor.fredrickRetrieveItems(c); not needed. this is vulernable to duey item dupe.
                 break;
+            }
             case 0x1C: //Exit
                 break;
             default:
