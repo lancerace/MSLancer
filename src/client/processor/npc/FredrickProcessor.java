@@ -25,6 +25,7 @@ package client.processor.npc;
 
 import client.MapleCharacter;
 import client.MapleClient;
+import client.autoban.AutobanFactory;
 import client.inventory.Item;
 import client.inventory.ItemFactory;
 import client.inventory.MapleInventory;
@@ -285,6 +286,15 @@ public class FredrickProcessor {
         if (c.tryacquireClient()) {
             try {
                 MapleCharacter chr = c.getPlayer();
+
+                //if shop is in open state, return
+
+                System.out.println("fredrickRetrieveItems");
+                if(chr.getHiredMerchant() == null){
+                AutobanFactory.ITEM_DUPE.alert(chr,"Item dupe attempt. You just got caught. Better luck next time.");
+                AutobanFactory.ITEM_DUPE.addPoint(chr.getAutobanManager(), "Banned for item duping 0x1A");
+                    return;
+                }
 
                 List<Pair<Item, MapleInventoryType>> items;
                 try {
