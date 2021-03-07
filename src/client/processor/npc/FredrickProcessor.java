@@ -287,15 +287,13 @@ public class FredrickProcessor {
             try {
                 MapleCharacter chr = c.getPlayer();
 
-                //if shop is in open state, return
-
-                System.out.println("fredrickRetrieveItems");
-                if(chr.getHiredMerchant() == null){
-                AutobanFactory.ITEM_DUPE.alert(chr,"Item dupe attempt. You just got caught. Better luck next time.");
-                AutobanFactory.ITEM_DUPE.addPoint(chr.getAutobanManager(), "Banned for item duping 0x1A");
+                if (chr.getHiredMerchant() == null) {
+                    AutobanFactory.ITEM_DUPE.alert(chr,
+                            "Item dupe attempt. You just got caught. Better luck next time.");
+                    AutobanFactory.ITEM_DUPE.addPoint(chr.getAutobanManager(), "Banned for item duping 0x1A");
                     return;
                 }
-
+                
                 List<Pair<Item, MapleInventoryType>> items;
                 try {
                     items = ItemFactory.MERCHANT.loadItems(chr.getId(), false);
