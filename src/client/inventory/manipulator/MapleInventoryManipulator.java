@@ -26,6 +26,7 @@ import client.MapleCharacter;
 import client.MapleClient;
 import client.inventory.Equip;
 import client.inventory.Item;
+import client.inventory.ItemFactory;
 import client.inventory.MapleInventory;
 import client.inventory.MapleInventoryType;
 import client.inventory.MaplePet;
@@ -35,12 +36,15 @@ import config.YamlConfig;
 import constants.inventory.ItemConstants;
 
 import java.awt.Point;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import server.MapleItemInformationProvider;
 import server.maps.MapleMap;
+import static tools.DatabaseConnection.getConnection;
 import tools.FilePrinter;
 
 import tools.MaplePacketCreator;
@@ -781,6 +785,47 @@ public class MapleInventoryManipulator {
         } else if (itemId == 4031868) {
             chr.updateAriantScore(quantityNow);
         }
+        //update inventory slot
+        if (source != null) {
+            PreparedStatement pst = null;
+            //ResultSet rs = null;
+            try {
+                pst = getConnection().prepareStatement("update inventoryitems set type = ?,\n"
+                        + "characterid = ?, "
+                        + "inventorytype = ?, "
+                        + "position = ?, "
+                        + "quantity = ?,"
+                        + "owner = ?, "
+                        + "petid = ?, "
+                        + "flag = ?, "
+                        + "expiration = ?, "
+                        + "giftFrom = ? "
+                        + "where "
+                        + "characterid = ? AND itemid = ? ");
+                pst.setInt(1,ItemFactory.INVENTORY.getValue());
+                pst.setInt(2, chr.getId());
+                pst.setInt(3, type.getType());
+                pst.setInt(4, source.getPosition());
+                pst.setInt(5, chr.getItemQuantity(itemId,false));// quantitynow = chr.getItemQuantity(itemId,true) 
+                pst.setString(6, source.getOwner());
+                pst.setInt(7, source.getPetId());
+                pst.setInt(8, source.getFlag());
+                pst.setLong(9, source.getExpiration());
+                pst.setString(10, source.getGiftFrom());
+                pst.setInt(11, chr.getId());
+                pst.setInt(12, source.getItemId());
+                int success = pst.executeUpdate();
+                if (success == 0) {
+                    throw new RuntimeException("Update inventoryitems failed.");
+                }
+
+                pst.close();
+            } catch (SQLException e) {
+                System.out.println("[MapleInventoryManipulator.java]: drop() save error");
+                e.printStackTrace();
+            }
+        }
+
     }
 
     private static boolean isDroppedItemRestricted(Item it) {
