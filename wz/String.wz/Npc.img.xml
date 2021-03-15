@@ -36397,9 +36397,10 @@
     <string name="d0" value="Oh, hey. I managed to get this nice statue of myself, cool huh?"/>
   </imgdir>
   <imgdir name="9906598">
-    <string name="n0" value="Hey, I am /name. How you doing?"/>
-    <string name="n1" value="I must have done some crazy feats to get this image of mine... Nice!"/>
-    <string name="d0" value="Oh, hey. I managed to get this nice statue of myself, cool huh?"/>
+    <string name="name" value="Abra"/>
+    <string name="n0" value="Hey, I am abra. Your awesome teleporter."/>
+    <string name="n1" value="I charge a heavy price if you want to teleport across region"/>
+    <string name="d0" value="I look cool isn't it?"/>
   </imgdir>
   <imgdir name="9906599">
     <string name="name" value="Chansey"/>
