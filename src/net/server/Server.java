@@ -354,7 +354,7 @@ public class Server {
         }
         
         Channel channel = new Channel(worldid, channelid, getCurrentTime());
-        channel.setServerMessage(YamlConfig.config.worlds.get(worldid).why_am_i_recommended);
+        //channel.setServerMessage(YamlConfig.config.worlds.get(worldid).why_am_i_recommended);
         
         if (world.addChannel(channel)) {
             wldWLock.lock();
@@ -447,7 +447,7 @@ public class Server {
         }
         
         if (canDeploy) {
-           world.setServerMessage(YamlConfig.config.worlds.get(i).server_message);
+           //world.setServerMessage(YamlConfig.config.worlds.get(i).server_message);
             
             System.out.println("Finished loading world " + i + "\r\n");
             return i;
