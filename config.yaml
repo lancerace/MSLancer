@@ -4,7 +4,7 @@
 worlds:
     #Properties for Scania 0
   - flag: 0
-    server_message: Welcome to SeaMS!
+    server_message: Welcome!
     event_message: Scania!
     why_am_i_recommended: Welcome to SeaMS!
     channels: 3
@@ -162,8 +162,8 @@ server:
     USE_THREAD_TRACKER: false        #[SEVERE] This deadlock auditing thing will bloat the memory as fast as the time frame one takes to lose track of a raindrop on a tempesting day. Only for debugging purposes.
 
     #Database Configuration
-    #DB_URL: "jdbc:mysql://localhost/mslancer?useSSL=false"
-    DB_URL: "jdbc:mysql://51.79.165.78/mslancer?useSSL=false"
+    DB_URL: "jdbc:mysql://localhost/mslancer?useSSL=false"
+    #DB_URL: "jdbc:mysql://51.79.165.78/mslancer?useSSL=false"
     DB_USER: root
     DB_PASS: Qwerty00@@
     DB_CONNECTION_POOL: true        #Installs a connection pool to hub DB connections. Set false to default.
@@ -199,8 +199,8 @@ server:
     LOGIN_ATTEMPT_DURATION: 120         #Period in seconds the login attempt remains registered on the system.
 
     #Ip Configuration
-    HOST: 51.79.165.78
-    #HOST: 127.0.0.1
+    #HOST: 51.79.165.78
+    HOST: 127.0.0.1
     LOCALSERVER: true
     GMSERVER: false
 
