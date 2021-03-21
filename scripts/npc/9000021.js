@@ -29,7 +29,7 @@ var status;
 function start() {
     cm.sendOk("Hi #h #. Events is currently closed.");
     status = -1;
-    action(0, 0, 0);
+    //action(0, 0, 0);
 }
 
 function action(mode, type, selection) {
