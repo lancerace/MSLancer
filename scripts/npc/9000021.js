@@ -30,10 +30,11 @@ function start() {
     cm.sendOk("Hi #h #. Events is currently closed.");
     status = -1;
     //action(0, 0, 0);
+    cm.dispose();
 }
 
 function action(mode, type, selection) {
-    if (mode < 0)
+    /*if (mode < 0)
         cm.dispose();
     else {
         if (mode == 0 && type > 0) {
@@ -59,5 +60,5 @@ function action(mode, type, selection) {
             cm.warp(970030000, "out00");
             cm.dispose();
         }
-    }
+    }*/
 }
