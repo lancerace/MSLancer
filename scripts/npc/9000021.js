@@ -24,12 +24,12 @@
     @author Ronan
  */
 
-var status=0;
+var status;
  
 function start() {
     cm.sendOk("Hi #h #. Events is currently closed.");
-    //status = -1;
-    //action(1, 0, 0);
+    status = -1;
+    action(0, 0, 0);
 }
 
 function action(mode, type, selection) {
