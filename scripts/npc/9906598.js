@@ -20,8 +20,12 @@ function calculateTravelCost() {
     lvl = cm.getPlayer().getLevel();
 
     for (var i = 0; i < pricing.length; i++)
-        if (lvl < pricing[i].level) {
-            cost = pricing[i - 1].price;
+
+        if (lvl <= pricing[i].level) {   
+            if(i===0)
+                cost = pricing[i].price;
+            else
+                cost = pricing[i - 1].price;
             return;
         }
 
