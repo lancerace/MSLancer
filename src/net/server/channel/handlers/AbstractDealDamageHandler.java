@@ -263,7 +263,7 @@ public abstract class AbstractDealDamageHandler extends AbstractMaplePacketHandl
 
                     //Check unlimited atkspd. also handle false positive autoban for aoe. 
                     if ((attack.skill != Bowmaster.HURRICANE && attack.numAttacked != player.getLastNumAttacked()) 
-                        || attack.numAttacked == 1)
+                        || attack.numAttacked == 1 || attack.skill != Cleric.HEAL)
                         if (player.getLastAttackedSecond() == current_seconds
                                 && (player.getLastAttackedMilis() - current_millis) < 150) {
                             player.incrementIrregularAttackSpeed();
