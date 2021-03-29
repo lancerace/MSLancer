@@ -250,7 +250,7 @@ public abstract class AbstractDealDamageHandler extends AbstractMaplePacketHandl
                 final MapleMonster monster = map.getMonsterByOid(oned.intValue());
                 if (monster != null) {
                     double distance = player.getPosition().distanceSq(monster.getPosition());
-                    double distanceToDetect = 170000.0;
+                    double distanceToDetect = 180000.0;
 
                     int current_seconds = now.get(Calendar.SECOND);
                     int current_millis = now.get(Calendar.MILLISECOND);
@@ -297,7 +297,7 @@ public abstract class AbstractDealDamageHandler extends AbstractMaplePacketHandl
                         distanceToDetect += 40000;
                     
                     else if(attack.skill == DragonKnight.DRAGON_ROAR || attack.skill == SuperGM.SUPER_DRAGON_ROAR)
-                        distanceToDetect += 150000;
+                        distanceToDetect += 250000;
                     
                     else if(attack.skill == Shadower.BOOMERANG_STEP)
                         distanceToDetect += 60000;
