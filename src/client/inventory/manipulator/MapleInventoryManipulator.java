@@ -816,7 +816,7 @@ public class MapleInventoryManipulator {
                 pst.setInt(12, source.getItemId());
                 int success = pst.executeUpdate();
                 if (success == 0) {
-                    throw new RuntimeException("Update inventoryitems failed.");
+                    //throw new RuntimeException("Update inventoryitems failed.");
                 }
 
                 pst.close();
