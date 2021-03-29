@@ -93,6 +93,7 @@ public abstract class CharacterFactory {
                 c.announce(MaplePacketCreator.addNewCharEntry(newchar));
                 
                 Server.getInstance().createCharacterEntry(newchar);
+                Server.getInstance().broadcastMessage(c.getWorld(), MaplePacketCreator.serverMessage(name + "has joined the maple world!"));
                 Server.getInstance().broadcastGMMessage(c.getWorld(), MaplePacketCreator.sendYellowTip("[New Char]: " + c.getAccountName() + " has created a new character with IGN " + name));
                 FilePrinter.print(FilePrinter.CREATED_CHAR + c.getAccountName() + ".txt", c.getAccountName() + " created character with IGN " + name);
                 

@@ -1435,7 +1435,10 @@ public class MapleMap {
             if (removeKilledMonsterObject(monster)) {
                 try {
                     if (monster.getStats().getLevel() >= chr.getLevel() + 30 && !chr.isGM()) {
-                        AutobanFactory.GENERAL.alert(chr, " for killing a " + monster.getName() + " which is over 30 levels higher.");
+                        if (YamlConfig.config.server.USE_AUTOBAN_LOG) {
+                            FilePrinter.print(FilePrinter.AUTOBAN_WARNING, (chr != null ? chr.getName() + "is killing a " + monster.getName(): "") + " which is over 30 levels higher.");
+                        }
+                        //AutobanFactory.GENERAL.alert(chr, " for killing a " + monster.getName() + " which is over 30 levels higher.");
                     }
 
                     /*if (chr.getQuest(MapleQuest.getInstance(29400)).getStatus().equals(MapleQuestStatus.Status.STARTED)) {
