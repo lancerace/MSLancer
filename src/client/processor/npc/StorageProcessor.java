@@ -63,6 +63,7 @@ public class StorageProcessor {
                                         byte slot = slea.readByte();
                                         if (slot < 0 || slot > storage.getSlots()) { // removal starts at zero
                                                 AutobanFactory.PACKET_EDIT.alert(c.getPlayer(), c.getPlayer().getName() + " tried to packet edit with storage.");
+                                                c.getPlayer().autoban( c.getPlayer().getName() + " tried to packet edit with storage.");
                                                 FilePrinter.print(FilePrinter.EXPLOITS + c.getPlayer().getName() + ".txt", c.getPlayer().getName() + " tried to work with storage slot " + slot);
                                                 c.disconnect(true, false);
                                                 return;
@@ -110,6 +111,7 @@ public class StorageProcessor {
                                         MapleInventory inv = chr.getInventory(invType);
                                         if (slot < 1 || slot > inv.getSlotLimit()) { //player inv starts at one
                                                 AutobanFactory.PACKET_EDIT.alert(c.getPlayer(), c.getPlayer().getName() + " tried to packet edit with storage.");
+                                                c.getPlayer().autoban( c.getPlayer().getName() + " tried to packet edit with storage.");
                                                 FilePrinter.print(FilePrinter.EXPLOITS + c.getPlayer().getName() + ".txt", c.getPlayer().getName() + " tried to store item at slot " + slot);
                                                 c.disconnect(true, false);
                                                 return;

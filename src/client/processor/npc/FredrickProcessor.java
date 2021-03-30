@@ -289,7 +289,7 @@ public class FredrickProcessor {
 
                 if (chr.getHiredMerchant() == null) {
                     AutobanFactory.ITEM_DUPE.alert(chr,
-                            "Item dupe attempt. You just got caught. Better luck next time.");
+                            "Want to dupe item? You just got caught sucker.");
                     AutobanFactory.ITEM_DUPE.addPoint(chr.getAutobanManager(), "Banned for item duping 0x1A");
                     return;
                 }
