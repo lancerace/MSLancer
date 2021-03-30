@@ -276,7 +276,7 @@ public abstract class AbstractDealDamageHandler extends AbstractMaplePacketHandl
                     //System.out.println("irregularattackspd: " + player.getIrregularAttackSpeed());
                     if (player.getIrregularAttackSpeed() >= 20){
                         AutobanFactory.FAST_ATTACK.alert(player, "Unlimited Fast Attack. Trying to be saitama.");
-                        c.getPlayer().autoban(player.getName() + " Unlimited Fast Attack. Trying to be saitama");
+                        player.autoban(player.getName() + " Unlimited Fast Attack. Trying to be saitama");
                     }
                     if (attack.ranged)
                         distanceToDetect += 400000;
