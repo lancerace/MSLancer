@@ -250,7 +250,7 @@ public abstract class AbstractDealDamageHandler extends AbstractMaplePacketHandl
                 final MapleMonster monster = map.getMonsterByOid(oned.intValue());
                 if (monster != null) {
                     double distance = player.getPosition().distanceSq(monster.getPosition());
-                    double distanceToDetect = 170000.0;
+                    double distanceToDetect = 180000.0;
 
                     int current_seconds = now.get(Calendar.SECOND);
                     int current_millis = now.get(Calendar.MILLISECOND);
@@ -260,24 +260,24 @@ public abstract class AbstractDealDamageHandler extends AbstractMaplePacketHandl
                     //System.out.println(current_seconds + " : " + current_millis);
                     //System.out.println("==============================================");
 
-
-                    //Check unlimited atkspd. also handle false positive autoban for aoe. 
-                    if ((attack.skill != Bowmaster.HURRICANE && 
-                        attack.numAttacked != player.getLastNumAttacked()) 
-                        || attack.numAttacked == 1 || attack.skill != Cleric.HEAL)
+                    // Check unlimited atkspd.
+                    if (attack.skill != Bowmaster.HURRICANE || attack.skill != Cleric.HEAL
+                    && attack.numAttacked == player.getLastNumAttacked()) {
                         if (player.getLastAttackedSecond() == current_seconds
-                                && (player.getLastAttackedMilis() - current_millis) < 150) {
+                                && (player.getLastAttackedMilis() - current_millis) < 100) {
                             player.incrementIrregularAttackSpeed();
                         } else
                             player.setIrregularAttackSpeed(0);
+                    }
                     player.recordLastAttack(now.get(Calendar.SECOND), now.get(Calendar.MILLISECOND));
                     player.setLastNumAttacked(attack.numAttacked);
 
                     //System.out.println("NumAttacked: " + attack.numAttacked);
                     //System.out.println("irregularattackspd: " + player.getIrregularAttackSpeed());
-                    if (player.getIrregularAttackSpeed() >= 15)
+                    if (player.getIrregularAttackSpeed() >= 20){
                         AutobanFactory.FAST_ATTACK.alert(player, "Unlimited Fast Attack. Trying to be saitama.");
-
+                        player.autoban(player.getName() + " Unlimited Fast Attack. Trying to be saitama");
+                    }
                     if (attack.ranged)
                         distanceToDetect += 400000;
 
@@ -297,7 +297,7 @@ public abstract class AbstractDealDamageHandler extends AbstractMaplePacketHandl
                         distanceToDetect += 40000;
                     
                     else if(attack.skill == DragonKnight.DRAGON_ROAR || attack.skill == SuperGM.SUPER_DRAGON_ROAR)
-                        distanceToDetect += 150000;
+                        distanceToDetect += 250000;
                     
                     else if(attack.skill == Shadower.BOOMERANG_STEP)
                         distanceToDetect += 60000;
@@ -308,12 +308,16 @@ public abstract class AbstractDealDamageHandler extends AbstractMaplePacketHandl
                         monster.refreshMobPosition();
                     }else player.setDistanceHackInstance(0);
 
-                    //set a guard > 4 , as it apply to attacking while using portal. fix false positive.
-                    if(player.getDistanceHackInstance() > 4)
-                     AutobanFactory.DISTANCE_HACK.alert(player, "Distance Sq to monster: " + distance + " SID: " + attack.skill + " MID: " + monster.getId());
+                    // set a guard > 4 , as it apply to attacking while using portal. fix false
+                    // positive.
+                    if (player.getDistanceHackInstance() > 4) {
+                        String reason = "Distance Sq to monster: " + distance + " SID: " + attack.skill + " MID: "
+                                + monster.getId();
+                        AutobanFactory.DISTANCE_HACK.alert(player, reason);
+                        player.autoban(player.getName() + "Distance Sq to monster: " + distance + " SID: " + attack.skill + " MID: "
+                        + monster.getId());
+                    }
 
-
-                    
                     int totDamageToOneMonster = 0;
                     List<Integer> onedList = attack.allDamage.get(oned);
                     

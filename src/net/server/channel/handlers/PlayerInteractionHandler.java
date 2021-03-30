@@ -598,6 +598,7 @@ public final class PlayerInteractionHandler extends AbstractMaplePacketHandler {
                 int price = slea.readInt();
                 if (perBundle <= 0 || perBundle * bundles > 2000 || bundles <= 0 || price <= 0 || price > Integer.MAX_VALUE) {
                     AutobanFactory.PACKET_EDIT.alert(chr, chr.getName() + " tried to packet edit with hired merchants.");
+                    c.getPlayer().autoban(c.getPlayer().getName() + " tried to packet edit with hired merchant.");
                     FilePrinter.printError(FilePrinter.EXPLOITS + chr.getName() + ".txt", chr.getName() + " might of possibly packet edited Hired Merchants\nperBundle: " + perBundle + "\nperBundle * bundles (This multiplied cannot be greater than 2000): " + perBundle * bundles + "\nbundles: " + bundles + "\nprice: " + price);
                     return;
                 }

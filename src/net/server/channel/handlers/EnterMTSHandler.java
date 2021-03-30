@@ -108,6 +108,7 @@ public final class EnterMTSHandler extends AbstractMaplePacketHandler {
             HashMap<String, Integer> gotomaps = new HashMap<>(GameConstants.GOTO_AREAS);
             MapleMap target = c.getChannelServer().getMapFactory().getMap(gotomaps.get("fm"));
             MaplePortal targetPortal = target.getRandomPlayerSpawnpoint();
+            chr.setMap(chr.getMap()); //save map
             chr.saveLocationOnWarp();
             chr.changeMap(target,targetPortal);
         }

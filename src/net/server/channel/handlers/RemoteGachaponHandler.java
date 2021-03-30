@@ -39,14 +39,17 @@ public final class RemoteGachaponHandler extends AbstractMaplePacketHandler {
 		int gacha = slea.readInt();
 		if (ticket != 5451000){
 			AutobanFactory.GENERAL.alert(c.getPlayer(), " Tried to use RemoteGachaponHandler with item id: " + ticket);
+			c.getPlayer().autoban(c.getPlayer().getName() + " Tried to packet edit Gachapon with item id.");
 			c.disconnect(false, false);
 			return;
 		} else if(gacha < 0 || gacha > 11) {
 			AutobanFactory.GENERAL.alert(c.getPlayer(), " Tried to use RemoteGachaponHandler with mode: " + gacha);
+			c.getPlayer().autoban(c.getPlayer().getName() + " Tried to packet edit Gachapon with mode.");
 			c.disconnect(false, false);
 			return;
 		} else if (c.getPlayer().getInventory(ItemConstants.getInventoryType(ticket)).countById(ticket) < 1) {
 			AutobanFactory.GENERAL.alert(c.getPlayer(), " Tried to use RemoteGachaponHandler without a ticket.");
+			c.getPlayer().autoban(c.getPlayer().getName() + " Tried to packet edit Gachapon without a ticket.");
 			c.disconnect(false, false);
 			return;
 		}

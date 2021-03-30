@@ -346,6 +346,7 @@ public class DueyProcessor {
                     fee += 5000;
                 } else if (!c.getPlayer().haveItem(5330000)) {
                     AutobanFactory.PACKET_EDIT.alert(c.getPlayer(), c.getPlayer().getName() + " tried to packet edit with Quick Delivery on duey.");
+                    c.getPlayer().autoban( c.getPlayer().getName() + " tried to packet edit with Quick Delivery on duey.");
                     FilePrinter.printError(FilePrinter.EXPLOITS + c.getPlayer().getName() + ".txt", c.getPlayer().getName() + " tried to use duey with Quick Delivery, mesos " + sendMesos + " and amount " + amount);
                     c.disconnect(true, false);
                     return;
@@ -354,6 +355,7 @@ public class DueyProcessor {
                 long finalcost = (long) sendMesos + fee;
                 if (finalcost < 0 || finalcost > Integer.MAX_VALUE || (amount < 1 && sendMesos == 0)) {
                     AutobanFactory.PACKET_EDIT.alert(c.getPlayer(), c.getPlayer().getName() + " tried to packet edit with duey.");
+                    c.getPlayer().autoban( c.getPlayer().getName() + " tried to packet edit with Quick Delivery on duey.");
                     FilePrinter.printError(FilePrinter.EXPLOITS + c.getPlayer().getName() + ".txt", c.getPlayer().getName() + " tried to use duey with mesos " + sendMesos + " and amount " + amount);
                     c.disconnect(true, false);
                     return;

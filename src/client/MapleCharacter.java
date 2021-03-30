@@ -10364,20 +10364,21 @@ public class MapleCharacter extends AbstractMapleCharacterObject {
     }
 
     public void autoban(String reason) {
-        if (this.isGM() || this.isBanned()){  // thanks RedHat for noticing GM's being able to get banned
+        if ((this.isGM() || this.isBanned()) || YamlConfig.config.server.USE_AUTOBAN == false) { // thanks RedHat for noticing GM's being able to get banned
             return;
         }
-        
-        this.ban(reason);
-        announce(MaplePacketCreator.sendPolice(String.format("You have been blocked by the#b %s Police for HACK reason.#k", "SeaMS")));
-        TimerManager.getInstance().schedule(new Runnable() {
-            @Override
-            public void run() {
-                client.disconnect(false, false);
-            }
-        }, 5000);
-        
-        Server.getInstance().broadcastGMMessage(this.getWorld(), MaplePacketCreator.serverNotice(6, MapleCharacter.makeMapleReadable(this.name) + " was autobanned for " + reason));
+            this.ban(reason);
+            announce(MaplePacketCreator
+                    .sendPolice(String.format("You have been blocked by the#b %s Police for HACK reason.#k", "SeaMS")));
+            TimerManager.getInstance().schedule(new Runnable() {
+                @Override
+                public void run() {
+                    client.disconnect(false, false);
+                }
+            }, 5000);
+
+            Server.getInstance().broadcastGMMessage(this.getWorld(), MaplePacketCreator.serverNotice(6,
+                    MapleCharacter.makeMapleReadable(this.name) + " was autobanned for " + reason));
     }
 
     public void block(int reason, int days, String desc) {
