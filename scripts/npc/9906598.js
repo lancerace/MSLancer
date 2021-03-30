@@ -63,7 +63,13 @@ function action(mode, type, selection) {
     }
 
     if (status === 2) {
-        selected = selection ;
+        selected = selection;
+       
+        if (cm.getMeso() < mesos) {
+            cm.sendNext("You don't have enough mesos");
+            cm.dispose();
+            return;
+        }
         cm.sendNext("Abra used teleport!");
         cm.gainMeso(-cost);
     }
