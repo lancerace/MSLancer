@@ -261,8 +261,8 @@ public abstract class AbstractDealDamageHandler extends AbstractMaplePacketHandl
                     //System.out.println("==============================================");
 
                     // Check unlimited atkspd.
-                    if ((attack.skill != Bowmaster.HURRICANE && attack.numAttacked != player.getLastNumAttacked())
-                            || attack.skill != Cleric.HEAL) {
+                    if (attack.skill != Bowmaster.HURRICANE || attack.skill != Cleric.HEAL
+                    && attack.numAttacked == player.getLastNumAttacked()) {
                         if (player.getLastAttackedSecond() == current_seconds
                                 && (player.getLastAttackedMilis() - current_millis) < 100) {
                             player.incrementIrregularAttackSpeed();
