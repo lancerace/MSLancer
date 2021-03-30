@@ -65,8 +65,8 @@ function action(mode, type, selection) {
     if (status === 2) {
         selected = selection;
        
-        if (cm.getMeso() < mesos) {
-            cm.sendNext("You don't have enough mesos");
+        if (cm.getMeso() < cost) {
+            cm.sendOk("You don't have enough mesos");
             cm.dispose();
             return;
         }
