@@ -62,7 +62,8 @@ public class WhatDropsFromCommand extends Command {
                             continue;
                         }
                         float chance = Math.max(1000000 / drop.chance / (!MapleMonsterInformationProvider.getInstance().isBoss(mobId) ? player.getDropRate() : player.getBossDropRate()), 1);
-                        output += "- " + name + " (1/" + (int) chance + ")\r\n";
+                        //output += "- " + name + " (1/" + (int) chance + ")\r\n";
+                        output += name + " - " +  String.format("%.03f",(1/ chance)) +"% \r\n";
                     } catch (Exception ex){
                         ex.printStackTrace();
                         continue;
