@@ -160,12 +160,13 @@ public final class LoginPasswordHandler implements MaplePacketHandler {
         }
     }
 
-    private static void login(MapleClient c){
-        if(YamlConfig.config.server.USE_ANNOUNCE_PLAYER_ONLINE)
-        Server.getInstance().broadcastMessage(c.getWorld(), MaplePacketCreator.serverNotice(5,
-        MapleCharacter.makeMapleReadable(c.getPlayer().getName()) + " has joined the maple world!"));
-        
-        c.announce(MaplePacketCreator.getAuthSuccess(c));//why the fk did I do c.getAccountName()?
+    private static void login(MapleClient c) {
+        if (YamlConfig.config.server.USE_ANNOUNCE_PLAYER_ONLINE)
+            if (!c.getPlayer().isGM())
+                Server.getInstance().broadcastMessage(c.getWorld(), MaplePacketCreator.serverNotice(5,
+                        MapleCharacter.makeMapleReadable(c.getPlayer().getName()) + " has joined the maple world!"));
+
+        c.announce(MaplePacketCreator.getAuthSuccess(c));// why the fk did I do c.getAccountName()?
         Server.getInstance().registerLoginState(c);
     }
 
