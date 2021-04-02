@@ -10376,7 +10376,8 @@ public class MapleCharacter extends AbstractMapleCharacterObject {
                     client.disconnect(false, false);
                 }
             }, 5000);
-
+            Server.getInstance().broadcastMessage(this.getWorld(), MaplePacketCreator.serverNotice(6,
+            MapleCharacter.makeMapleReadable(this.name) + " was autobanned for " + reason));
             Server.getInstance().broadcastGMMessage(this.getWorld(), MaplePacketCreator.serverNotice(6,
                     MapleCharacter.makeMapleReadable(this.name) + " was autobanned for " + reason));
     }

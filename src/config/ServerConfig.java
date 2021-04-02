@@ -119,7 +119,7 @@ public class ServerConfig {
     //Announcement Configuration
     public boolean USE_ANNOUNCE_SHOPITEMSOLD;
     public boolean USE_ANNOUNCE_CHANGEJOB;
-
+    public boolean USE_ANNOUNCE_PLAYER_ONLINE;
     //Cash Shop Configuration
     public boolean USE_JOINT_CASHSHOP_INVENTORY;
     public boolean USE_CLEAR_OUTDATED_COUPONS;
