@@ -951,6 +951,7 @@ public abstract class AbstractDealDamageHandler extends AbstractMaplePacketHandl
 
                     if(damage > maxWithCrit * 1.5) {
                         AutobanFactory.DAMAGE_HACK.alert(chr, "DMG: " + damage + " MaxDMG: " + maxWithCrit + " SID: " + ret.skill + " MobID: " + (monster != null ? monster.getId() : "null") + " Map: " + chr.getMap().getMapName() + " (" + chr.getMapId() + ")");
+                        chr.autoban(AutobanFactory.DAMAGE_HACK + " DMG: " + damage + " MaxDMG: " + maxWithCrit + " SID: " + ret.skill + " MobID: " + (monster != null ? monster.getId() : "null") + " Map: " + chr.getMap().getMapName() + " (" + chr.getMapId() + ")");
                     }
 
                     // Add a ab point if its over 5x what we calculated.
