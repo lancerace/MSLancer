@@ -221,6 +221,12 @@ public final class PlayerLoggedinHandler extends AbstractMaplePacketHandler {
                 wserv.addPlayer(player);
                 player.setEnteredChannelWorld();
 
+                // announce player loggedin
+                if ((YamlConfig.config.server.USE_ANNOUNCE_PLAYER_ONLINE) && !player.isGM()) {
+                    Server.getInstance().broadcastMessage(player.getWorld(), MaplePacketCreator.sendYellowTip(
+                        player.getName() + " has joined the Maple World!"));
+                }
+
                 List<PlayerBuffValueHolder> buffs = server.getPlayerBuffStorage().getBuffsFromStorage(cid);
                 if (buffs != null) {
                     List<Pair<Long, PlayerBuffValueHolder>> timedBuffs = getLocalStartTimes(buffs);
