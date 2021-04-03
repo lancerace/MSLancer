@@ -143,6 +143,7 @@ public class ServerConfig {
 
     public byte EXP_SPLIT_LEVEL_INTERVAL;
     public byte EXP_SPLIT_LEECH_INTERVAL;
+    public int EXP_MOB_MIN_LEVEL_DIFF;
     public float EXP_SPLIT_MVP_MOD;
     public float EXP_SPLIT_COMMON_MOD;
     public float PARTY_BONUS_EXP_RATE;

@@ -563,13 +563,23 @@ public class MapleMonster extends AbstractLoadedMapleLife {
         
         List<MapleCharacter> expMembers = new LinkedList<>();
         int totalPartyLevel = 0;
-        
-        // thanks G h o s t, Alfred, Vcoc, BHB for poiting out a bug in detecting party members after membership transactions in a party took place
+
+        // thanks G h o s t, Alfred, Vcoc, BHB for poiting out a bug in detecting party
+        // members after membership transactions in a party took place
         if (YamlConfig.config.server.USE_ENFORCE_MOB_LEVEL_RANGE) {
             for (MapleCharacter member : partyParticipation.keySet().iterator().next().getPartyMembersOnSameMap()) {
-                if (!leechInterval.inInterval(member.getLevel())) {
-                    underleveled.add(member);
-                    continue;
+                
+                // if damage dealt is >10% of mob max hp
+                AtomicLong dealt = takenDamage.get(member.getId());
+                boolean sufficientDamage = (dealt != null && (float) dealt.get() / stats.getHp() > 0.10f);
+
+                // player must be within monster level range.
+                boolean reqLevelRange = getLevel() - member.getLevel() <= YamlConfig.config.server.EXP_MOB_MIN_LEVEL_DIFF;
+                if (!leechInterval.inInterval(member.getLevel()) || !reqLevelRange) {
+                    if (!sufficientDamage) {
+                        underleveled.add(member);
+                        continue;
+                    }
                 }
 
                 totalPartyLevel += member.getLevel();
