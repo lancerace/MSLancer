@@ -990,6 +990,14 @@
     <string name="name" value="Chocolate Fondue Chair"/>
     <string name="desc" value="Yummy! Use this chair next to someone else who&apos;s also using it, and a mouth-watering chocolate fondue appears. Smack your lips and dream about treats as you recover 50 HP every 10 seconds. "/>
   </imgdir>
+  <imgdir name="3012012">
+    <string name="name" value="Susanoo Chair"/>
+    <string name="desc" value="A legendary chair that holds the power of Atasuki. Ceased owner with mangekyou sharingan.  Legend has it says before the owner died, the remaining power is transferred to this chair, granting power of susansoo to the holder. "/>
+  </imgdir>
+  <imgdir name="3012013">
+    <string name="name" value="Kyuubi Chair"/>
+    <string name="desc" value="The nine tail beast chair, kurama. It's soul is sealed in this chair by the great hokage. The holder will grant power of unlimited charka. "/>
+  </imgdir>
   <imgdir name="3010069">
     <string name="name" value="Yellow Robot Chair"/>
     <string name="desc" value="Perch yourself on the hand of this powerful yellow robot to recover 50 HP and 30 MP every 10 seconds."/>

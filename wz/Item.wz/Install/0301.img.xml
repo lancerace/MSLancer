@@ -2337,4 +2337,85 @@
       <int name="pos" value="1"/>
     </imgdir>
   </imgdir>
+
+  <imgdir name="03012012">
+    <imgdir name="info">
+      <canvas name="icon" width="16" height="13">
+        <vector name="origin" x="0" y="33"/>
+      </canvas>
+      <canvas name="iconRaw" width="16" height="13">
+        <vector name="origin" x="0" y="33"/>
+      </canvas>
+      <int name="price" value="1"/>
+      <int name="slotMax" value="1"/>
+      <int name="recoveryHP" value="50"/>
+    </imgdir>
+    <imgdir name="effect">
+      <canvas name="0" width="204" height="175">
+        <vector name="origin" x="195" y="290"/>
+        <int name="delay" value="180"/>
+        <int name ="z" value="0"/>
+      </canvas>
+      <canvas name="1" width="204" height="175">
+        <vector name="origin" x="195" y="290"/>
+        <int name="delay" value="180"/>
+        <int name ="z" value="0"/>
+      </canvas>
+      <canvas name="2" width="204" height="175">
+        <vector name="origin" x="195" y="290"/>
+        <int name="delay" value="180"/>
+        <int name ="z" value="0"/>
+      </canvas>
+      <canvas name="3" width="204" height="175">
+        <vector name="origin" x="195" y="290"/>
+        <int name="delay" value="180"/>
+        <int name ="z" value="0"/>
+      </canvas>
+      <canvas name="4" width="204" height="175">
+        <vector name="origin" x="195" y="290"/>
+        <int name="delay" value="180"/>
+        <int name ="z" value="0"/>
+      </canvas>
+      <int name="pos" value="1"/>
+      <int name="z" value="3"/>
+    </imgdir>
+  </imgdir>
+
+  <imgdir name="03012013">
+    <imgdir name="info">
+      <canvas name="icon" width="16" height="13">
+        <vector name="origin" x="0" y="33"/>
+      </canvas>
+      <canvas name="iconRaw" width="16" height="13">
+        <vector name="origin" x="0" y="33"/>
+      </canvas>
+      <int name="price" value="1"/>
+      <int name="slotMax" value="1"/>
+      <int name="recoveryHP" value="50"/>
+    </imgdir>
+    <imgdir name="effect">
+      <canvas name="0" width="204" height="175">
+        <vector name="origin" x="150" y="280"/>
+        <int name="delay" value="180"/>
+      </canvas>
+      <canvas name="1" width="204" height="175">
+        <vector name="origin" x="150" y="280"/>
+        <int name="delay" value="180"/>
+      </canvas>
+      <canvas name="2" width="204" height="175">
+        <vector name="origin" x="150" y="280"/>
+        <int name="delay" value="180"/>
+      </canvas>
+      <canvas name="3" width="204" height="175">
+        <vector name="origin" x="150" y="280"/>
+        <int name="delay" value="180"/>
+      </canvas>
+      <canvas name="4" width="204" height="175">
+        <vector name="origin" x="150" y="280"/>
+        <int name="delay" value="180"/>
+      </canvas>
+      <int name="pos" value="1"/>
+      <int name="z" value="3"/>
+    </imgdir>
+  </imgdir>
 </imgdir>
