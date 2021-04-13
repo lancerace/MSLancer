@@ -31,6 +31,7 @@ import client.inventory.MapleInventoryType;
 import client.inventory.MaplePet;
 import config.YamlConfig;
 import constants.inventory.ItemConstants;
+import net.server.Server;
 import server.MapleItemInformationProvider;
 
 public class ItemDropCommand extends Command {
@@ -41,7 +42,7 @@ public class ItemDropCommand extends Command {
     @Override
     public void execute(MapleClient c, String[] params) {
         MapleCharacter player = c.getPlayer();
-        
+
         if (params.length < 1) {
             player.yellowMessage("Syntax: !drop <itemid> <quantity>");
             return;
@@ -50,21 +51,56 @@ public class ItemDropCommand extends Command {
         int itemId = Integer.parseInt(params[0]);
         MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
 
-        if(ii.getName(itemId) == null) {
+        if (ii.getName(itemId) == null) {
             player.yellowMessage("Item id '" + params[0] + "' does not exist.");
             return;
         }
 
         short quantity = 1;
-        if(params.length >= 2) quantity = Short.parseShort(params[1]);
+        if (params.length >= 2)
+            quantity = Short.parseShort(params[1]);
 
         if (YamlConfig.config.server.BLOCK_GENERATE_CASH_ITEM && ii.isCash(itemId)) {
             player.yellowMessage("You cannot create a cash item with this command.");
             return;
         }
 
+        if (ItemConstants.isExpCoupon(itemId)) {
+            Item toDropItem = new Item(itemId, (short) 0, quantity, -1);
+            switch (itemId) {
+            case 5211048:
+            case 5360042: {
+                // 4 Hour 2X coupons, the period is 1, but we don't want them to last a day.
+                toDropItem.setExpiration(Server.getInstance().getCurrentTime() + (1000 * 60 * 60 * 4));
+            }
+                break;
+            case 5211060:
+                toDropItem.setExpiration(Server.getInstance().getCurrentTime() + (1000 * 60 * 60 * 2));
+                break;
+            case 5211047:
+            case 5360014:
+                toDropItem.setExpiration(Server.getInstance().getCurrentTime() + (1000 * 60 * 60 * 3));// 3 Hour 2X coupons
+                break;
+            default:
+                toDropItem.setExpiration(Server.getInstance().getCurrentTime() + (1000 * 60 * 60 * 24));
+            }
+
+            toDropItem.setOwner("");
+            if (player.gmLevel() < 3) {
+                short f = toDropItem.getFlag();
+                f |= ItemConstants.ACCOUNT_SHARING;
+                f |= ItemConstants.UNTRADEABLE;
+                f |= ItemConstants.SANDBOX;
+                toDropItem.setFlag(f);
+                toDropItem.setOwner("TRIAL-MODE");
+            }
+            c.getPlayer().getMap().spawnItemDrop(c.getPlayer(), c.getPlayer(), toDropItem, c.getPlayer().getPosition(),
+                    true, true);
+            return;
+        }
+
         if (ItemConstants.isPet(itemId)) {
-            if (params.length >= 2){   // thanks to istreety & TacoBell
+            if (params.length >= 2) { // thanks to istreety & TacoBell
                 quantity = 1;
                 long days = Math.max(1, Integer.parseInt(params[1]));
                 long expiration = System.currentTimeMillis() + (days * 24 * 60 * 60 * 1000);
@@ -74,25 +110,26 @@ public class ItemDropCommand extends Command {
                 toDrop.setExpiration(expiration);
 
                 toDrop.setOwner("");
-                if(player.gmLevel() < 3) {
+                if (player.gmLevel() < 3) {
                     short f = toDrop.getFlag();
                     f |= ItemConstants.ACCOUNT_SHARING;
                     f |= ItemConstants.UNTRADEABLE;
                     f |= ItemConstants.SANDBOX;
-                    
+
                     toDrop.setFlag(f);
                     toDrop.setOwner("TRIAL-MODE");
                 }
 
-                c.getPlayer().getMap().spawnItemDrop(c.getPlayer(), c.getPlayer(), toDrop, c.getPlayer().getPosition(), true, true);
+                c.getPlayer().getMap().spawnItemDrop(c.getPlayer(), c.getPlayer(), toDrop, c.getPlayer().getPosition(),
+                        true, true);
 
                 return;
             } else {
                 player.yellowMessage("Pet Syntax: !drop <itemid> <expiration>");
-                return;        
+                return;
             }
         }
-        
+
         Item toDrop;
         if (ItemConstants.getInventoryType(itemId) == MapleInventoryType.EQUIP) {
             toDrop = ii.getEquipById(itemId);
@@ -101,7 +138,7 @@ public class ItemDropCommand extends Command {
         }
 
         toDrop.setOwner(player.getName());
-        if(player.gmLevel() < 3) {
+        if (player.gmLevel() < 3) {
             short f = toDrop.getFlag();
             f |= ItemConstants.ACCOUNT_SHARING;
             f |= ItemConstants.UNTRADEABLE;
@@ -111,6 +148,7 @@ public class ItemDropCommand extends Command {
             toDrop.setOwner("TRIAL-MODE");
         }
 
-        c.getPlayer().getMap().spawnItemDrop(c.getPlayer(), c.getPlayer(), toDrop, c.getPlayer().getPosition(), true, true);
+        c.getPlayer().getMap().spawnItemDrop(c.getPlayer(), c.getPlayer(), toDrop, c.getPlayer().getPosition(), true,
+                true);
     }
 }
