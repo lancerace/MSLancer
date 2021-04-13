@@ -84,29 +84,15 @@ public final class EnterMTSHandler extends AbstractMaplePacketHandler {
 
             chr.closePlayerInteractions();
             chr.closePartySearchInteractions();
-            
-            chr.unregisterChairBuff();
+
             Server.getInstance().getPlayerBuffStorage().addBuffsToStorage(chr.getId(), chr.getAllBuffs());
             Server.getInstance().getPlayerBuffStorage().addDiseasesToStorage(chr.getId(), chr.getAllDiseases());
-            //chr.setAwayFromChannelWorld();
             chr.notifyMapTransferToPartner(-1);
             chr.removeIncomingInvites();
-            chr.cancelAllBuffs(true);
-            chr.cancelAllDebuffs();
-            chr.cancelBuffExpireTask();
-            chr.cancelDiseaseExpireTask();
-            chr.cancelSkillCooldownTask();
-            chr.cancelExpirationTask();
-
-            chr.forfeitExpirableQuests();
-            chr.cancelQuestExpirationTask();
-            
-            //c.getChannelServer().removePlayer(chr);
-            //chr.getMap().removePlayer(c.getPlayer());
             HashMap<String, Integer> gotomaps = new HashMap<>(GameConstants.GOTO_AREAS);
             MapleMap target = c.getChannelServer().getMapFactory().getMap(gotomaps.get("fm"));
             MaplePortal targetPortal = target.getRandomPlayerSpawnpoint();
-            chr.setMap(chr.getMap()); //save map
+            chr.setMap(chr.getMapId()); //save map
             chr.saveLocationOnWarp();
             chr.saveCharToDB();
             chr.changeMap(target,targetPortal);
