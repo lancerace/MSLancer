@@ -101,8 +101,8 @@ public final class EnterMTSHandler extends AbstractMaplePacketHandler {
             chr.forfeitExpirableQuests();
             chr.cancelQuestExpirationTask();
             
-            c.getChannelServer().removePlayer(chr);
-            chr.getMap().removePlayer(c.getPlayer());
+            //c.getChannelServer().removePlayer(chr);
+            //chr.getMap().removePlayer(c.getPlayer());
             HashMap<String, Integer> gotomaps = new HashMap<>(GameConstants.GOTO_AREAS);
             MapleMap target = c.getChannelServer().getMapFactory().getMap(gotomaps.get("fm"));
             MaplePortal targetPortal = target.getRandomPlayerSpawnpoint();
