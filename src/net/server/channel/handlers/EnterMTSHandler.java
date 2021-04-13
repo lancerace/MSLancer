@@ -100,8 +100,6 @@ public final class EnterMTSHandler extends AbstractMaplePacketHandler {
 
             chr.forfeitExpirableQuests();
             chr.cancelQuestExpirationTask();
-
-            chr.saveCharToDB();
             
             c.getChannelServer().removePlayer(chr);
             chr.getMap().removePlayer(c.getPlayer());
