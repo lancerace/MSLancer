@@ -612,10 +612,6 @@ public class MapleCharacter extends AbstractMapleCharacterObject {
         this.irregularAttackSpeed = i;
     }
 
-    public void incrementIrregularAttackSpeed() {
-        this.irregularAttackSpeed++;
-    }
-
     public void recordLastAttack(int lastAttackedSeconds, int lastAttackedMilis){
         this.lastAttackedSeconds = lastAttackedSeconds;
         this.lastAttackedMilis = lastAttackedMilis;

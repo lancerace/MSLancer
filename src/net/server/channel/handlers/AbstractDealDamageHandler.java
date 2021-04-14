@@ -255,25 +255,20 @@ public abstract class AbstractDealDamageHandler extends AbstractMaplePacketHandl
                     int current_seconds = now.get(Calendar.SECOND);
                     int current_millis = now.get(Calendar.MILLISECOND);
 
-                    //System.out.println("attackCount:"+attackCount);
-                    //System.out.println(player.getLastAttackedSecond() + " : " + player.getLastAttackedMilis());
-                    //System.out.println(current_seconds + " : " + current_millis);
-                    //System.out.println("==============================================");
-
                     // Check unlimited atkspd.
-                    if (attack.skill != Bowmaster.HURRICANE || attack.skill != Cleric.HEAL
-                    && attack.numAttacked == player.getLastNumAttacked()) {
+                    if (attack.skill != Bowmaster.HURRICANE
+                            || attack.skill != Cleric.HEAL && attack.numAttacked == player.getLastNumAttacked()) {
                         if (player.getLastAttackedSecond() == current_seconds
-                                && (player.getLastAttackedMilis() - current_millis) < 100) {
-                            player.incrementIrregularAttackSpeed();
+                                && (player.getLastAttackedMilis() - current_millis) < 90) {
+                            player.setIrregularAttackSpeed(player.getIrregularAttackSpeed() + 1);
                         } else
                             player.setIrregularAttackSpeed(0);
                     }
                     player.recordLastAttack(now.get(Calendar.SECOND), now.get(Calendar.MILLISECOND));
                     player.setLastNumAttacked(attack.numAttacked);
 
-                    //System.out.println("NumAttacked: " + attack.numAttacked);
-                    //System.out.println("irregularattackspd: " + player.getIrregularAttackSpeed());
+                    // System.out.println("NumAttacked: " + attack.numAttacked);
+                    // System.out.println("irregularattackspd: " + player.getIrregularAttackSpeed());
                     if (player.getIrregularAttackSpeed() >= 20){
                         AutobanFactory.FAST_ATTACK.alert(player, "Unlimited Fast Attack. Trying to be saitama.");
                         player.autoban(player.getName() + " Unlimited Fast Attack. Trying to be saitama");

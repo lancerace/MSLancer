@@ -77,7 +77,7 @@ public class ItemDropCommand extends Command {
             case 5211060:
                 toDropItem.setExpiration(Server.getInstance().getCurrentTime() + (1000 * 60 * 60 * 2));
                 break;
-            case 5211047:
+            case 5211047:// 3 Hour 2X coupons
             case 5360014:
                 toDropItem.setExpiration(Server.getInstance().getCurrentTime() + (1000 * 60 * 60 * 3));// 3 Hour 2X coupons
                 break;
