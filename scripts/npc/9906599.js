@@ -19,10 +19,18 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-/* Rooney
-	Map Name (Map ID)
-	Used to exchange VP for Maple Leaves, and Maple Leaves for rewards.
- */
+/*
+    This file is part of the SeaMS Maple Story Server
+*/
+/**
+-- SeaMs JavaScript --------------------------------------------------------------------------------
+    Chansey - Free Market (9906599)
+-- By ---------------------------------------------------------------------------------------------
+    Magikarp
+-- Version Info -----------------------------------------------------------------------------------
+    1.0 - First Version by Magikarp
+---------------------------------------------------------------------------------------------------
+**/
 
      
     function start() {
